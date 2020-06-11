@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
 import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
+import com.example.jacobsthierryandroidproject.Repository.Repository;
 
 import junit.framework.TestCase;
 
@@ -12,11 +13,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class requestsTest extends TestCase {
+public class repositoryTest extends TestCase {
 
     @Test
     public void testRequestFood() {
-        requests.requestFood("burger", new myCallback<RecipeResponse>() {
+        Repository.requestFood("burger", new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
                 Log.d("food", result.toString());
@@ -27,7 +28,7 @@ public class requestsTest extends TestCase {
 
     @Test
     public void testRequestRandom(){
-        requests.requestRandom(new myCallback<RecipeResponse>() {
+        Repository.requestRandom(new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
                 Log.d("food", result.toString());
@@ -38,7 +39,7 @@ public class requestsTest extends TestCase {
 
     @Test
     public void testGetById(){
-        requests.getById(1, new myCallback<Recipe>() {
+        Repository.getById(1, new myCallback<Recipe>() {
             @Override
             public void callbackCall(Recipe result) {
                 assertTrue(result != null);

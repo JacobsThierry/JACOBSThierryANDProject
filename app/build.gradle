@@ -27,6 +27,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.room:room-runtime:2.2.2'
+    annotationProcessor 'androidx.room:room-compiler:2.2.2'
+
 
     //add navigation
     def nav_version = "2.3.0-beta01"

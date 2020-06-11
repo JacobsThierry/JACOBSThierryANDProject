@@ -1,5 +1,6 @@
 package com.example.jacobsthierryandroidproject.View.fragment;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
 import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
-import com.example.jacobsthierryandroidproject.Pojo.myCallback;
 import com.example.jacobsthierryandroidproject.R;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.requests;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
 
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     List<Recipe> list;
     FoodAdapter adapter;
 
-    RecipeModel viewModel = new RecipeModel();
+    RecipeModel viewModel ;
     ProgressBar progressBar;
 
 
@@ -63,6 +61,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     @Override
     public void onStart() {
         super.onStart();
+        if(viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
         recyclerView = getView().findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();

@@ -1,28 +1,35 @@
 package com.example.jacobsthierryandroidproject.Model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.widget.ImageView;
+import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.requests;
+import com.example.jacobsthierryandroidproject.Repository.Repository;
 import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-public class RecipeModel extends ViewModel {
+public class RecipeModel extends AndroidViewModel{
 
     private MutableLiveData<ArrayList<Recipe>> queryResult = new MutableLiveData<>();
     private MutableLiveData<Recipe> singleQueryResult = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+    private LiveData<Boolean> isInFavorite = new MutableLiveData<>(false);
+    private Repository repository;
+
+    public RecipeModel(@NonNull Application application) {
+        super(application);
+        repository = Repository.getInstance(application);
+    }
 
     public LiveData<ArrayList<Recipe>> getQueryResult(){
         return queryResult;
@@ -39,7 +46,7 @@ public class RecipeModel extends ViewModel {
 
     public void queryByName(String argument){
         isLoading.setValue(true);
-        requests.requestFood(argument, new myCallback<RecipeResponse>() {
+        Repository.requestFood(argument, new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
                 isLoading.setValue(false);
@@ -51,7 +58,7 @@ public class RecipeModel extends ViewModel {
 
     public void queryRandom(){
         isLoading.setValue(true);
-        requests.requestRandom(new myCallback<RecipeResponse>() {
+        Repository.requestRandom(new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
                 isLoading.setValue(false);
@@ -62,7 +69,7 @@ public class RecipeModel extends ViewModel {
 
     public void queryById(int argument){
         isLoading.setValue(true);
-        requests.getById(argument, new myCallback<Recipe>() {
+        Repository.getById(argument, new myCallback<Recipe>() {
             @Override
             public void callbackCall(Recipe result) {
                 isLoading.setValue(false);
@@ -71,8 +78,28 @@ public class RecipeModel extends ViewModel {
         });
     }
 
+    public LiveData<List<Recipe>> getFavorite(){
+        return repository.getFavourites();
+    }
+
+    public void addToFavorite(Recipe recipe){
+        repository.addRecipeToFavourites(recipe);
+    }
 
 
+    public void isInFavorite(Recipe recipe){
+        repository.isInFavorite(recipe);
+        isInFavorite = repository.getIsInFavoriteData();
+    }
 
+    public LiveData<Boolean> getIsInFavorite(){
+        return isInFavorite;
+
+    }
+
+    public void changeFavorite(Recipe recipe){
+        Log.d("Food ", "recipe changeFavorite");
+        repository.changeFavorite(recipe);
+    }
 
 }

@@ -10,4 +10,6 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipicing elit. Sed non risus. Suspendiss lectus tortor</string>
     <string name="ingredients">Ingredients</string>
     <string name="action_search">Search</string>
+    <string name="Removed">Removed from favorite</string>
+    <string name="AddedToFav">Added to favorites</string>
 </resources>

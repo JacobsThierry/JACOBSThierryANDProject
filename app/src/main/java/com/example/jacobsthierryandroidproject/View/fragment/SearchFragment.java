@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     FoodAdapter adapter;
     SearchView searchView;
     String searchString;
-    RecipeModel viewModel = new RecipeModel();
+    RecipeModel viewModel;
     ProgressBar progressBar;
 
     private static String QUERYKEY="querry";
@@ -107,6 +107,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     @Override
     public void onStart() {
         super.onStart();
+        if(viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
         recyclerView = getView().findViewById(R.id.search_rv);
         final OnListItemClickListener lis = this;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -7,27 +7,51 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.Spanned;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
 import com.example.jacobsthierryandroidproject.Pojo.Ingredient;
 import com.example.jacobsthierryandroidproject.Pojo.Instructions.instruction;
 import com.example.jacobsthierryandroidproject.Pojo.Instructions.step;
+import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.DataConverter;
 import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.ServiceGenerator;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity(tableName = "recipes_favourites")
 public class Recipe implements Serializable {
 
+    @PrimaryKey(autoGenerate = false)
+    protected int id;
     protected String summary;
     protected String instructions;
     protected float pricePerServing;
+
     protected List<instruction> analyzedInstructions;
     protected List<Ingredient> extendedIngredients;
-    protected int id;
     protected String image;
     protected String imageUrls;
     protected int readyInMinutes;
     protected int servings;
     protected String title;
+
+
+    public Recipe(int id, String summary, String instructions, float pricePerServing, List<instruction> analyzedInstructions, List<Ingredient> extendedIngredients, String image, String imageUrls, int readyInMinutes, int servings, String title) {
+        this.id = id;
+        this.summary = summary;
+        this.instructions = instructions;
+        this.pricePerServing = pricePerServing;
+        this.analyzedInstructions = analyzedInstructions;
+        this.extendedIngredients = extendedIngredients;
+        this.image = image;
+        this.imageUrls = imageUrls;
+        this.readyInMinutes = readyInMinutes;
+        this.servings = servings;
+        this.title = title;
+    }
 
     public int getId() {
         return id;
@@ -156,6 +180,7 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
     }
 
+
     public List<instruction> getAnalyzedInstructions() {
         return analyzedInstructions;
     }
@@ -174,11 +199,13 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return "FoodExtended{" +
-                "summary='" + summary + '\'' +
+        return "Recipe{" +
+                "id=" + id +
+                ", summary='" + summary + '\'' +
                 ", instructions='" + instructions + '\'' +
+                ", pricePerServing=" + pricePerServing +
                 ", analyzedInstructions=" + analyzedInstructions +
-                ", id=" + id +
+                ", extendedIngredients=" + extendedIngredients +
                 ", image='" + image + '\'' +
                 ", imageUrls='" + imageUrls + '\'' +
                 ", readyInMinutes=" + readyInMinutes +
