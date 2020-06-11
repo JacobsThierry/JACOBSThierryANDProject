@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">JACOBSThierry AndroidProject</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="search">search</string>
+    <string name="profile">Profile</string>
+    <string name="discover_new_recipes">Discover new recipes !</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipicing elit. Sed non risus. Suspendiss lectus tortor</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="action_search">Search</string>
+</resources>
