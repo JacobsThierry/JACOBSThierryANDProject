@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
-import com.example.jacobsthierryandroidproject.Pojo.myCallback;
 import com.example.jacobsthierryandroidproject.R;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.requests;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
 import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
-import com.example.jacobsthierryandroidproject.View.adapter.searchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     SearchView searchView;
     String searchString;
     RecipeModel viewModel = new RecipeModel();
+    ProgressBar progressBar;
 
     private static String QUERYKEY="querry";
 
@@ -118,7 +116,10 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
         adapter = new FoodAdapter(list, lis);
 
 
+
+
         recyclerView.setAdapter(adapter);
+        progressBar = getView().findViewById(R.id.search_progress_bar);
 
         viewModel.getQueryResult().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
@@ -133,6 +134,14 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
             }
         });
 
+        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                int visible = aBoolean?View.VISIBLE:View.INVISIBLE;
+                progressBar.setVisibility(visible);
+            }
+        });
+
 
 
 
@@ -143,17 +152,16 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     @Override
     public void onClick(Recipe food) {
 
-        requests.getById(food.getId(), new myCallback<Recipe>() {
-            @Override
-            public void callbackCall(Recipe result) {
-                Recipe food = result;
-                foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.foodItemFragment.newInstance(food);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();
-            }
-        });
+        foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.foodItemFragment.newInstance(food);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();
 
+
+        viewModel.queryById(food.getId());
 
     }
 
 }
+
+
+

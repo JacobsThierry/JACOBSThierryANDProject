@@ -29,7 +29,6 @@ public class Recipe implements Serializable {
     protected int servings;
     protected String title;
 
-
     public int getId() {
         return id;
     }

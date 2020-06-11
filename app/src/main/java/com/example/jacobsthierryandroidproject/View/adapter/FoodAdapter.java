@@ -51,7 +51,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         holder.name.setText(food.get(position).getTitle());
-        Picasso.get().load(food.get(position).getImage()).into(holder.image);
+        Picasso.get().load(food.get(position).getImage()).fit().into(holder.image);
     }
 
 

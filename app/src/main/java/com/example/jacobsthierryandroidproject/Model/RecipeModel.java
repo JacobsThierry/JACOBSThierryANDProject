@@ -22,6 +22,7 @@ public class RecipeModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Recipe>> queryResult = new MutableLiveData<>();
     private MutableLiveData<Recipe> singleQueryResult = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
     public LiveData<ArrayList<Recipe>> getQueryResult(){
         return queryResult;
@@ -31,11 +32,17 @@ public class RecipeModel extends ViewModel {
         return singleQueryResult;
     }
 
+    public LiveData<Boolean> getIsLoading(){
+        return isLoading;
+    }
+
 
     public void queryByName(String argument){
+        isLoading.setValue(true);
         requests.requestFood(argument, new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
+                isLoading.setValue(false);
                 if(result != null && result.getRecipes() != null)
                     queryResult.postValue(new ArrayList<Recipe>(result.getRecipes()));
             }
@@ -43,18 +50,22 @@ public class RecipeModel extends ViewModel {
     }
 
     public void queryRandom(){
+        isLoading.setValue(true);
         requests.requestRandom(new myCallback<RecipeResponse>() {
             @Override
             public void callbackCall(RecipeResponse result) {
+                isLoading.setValue(false);
                 queryResult.postValue(new ArrayList<Recipe>(result.getRecipes()));
             }
         }, 30);
     }
 
     public void queryById(int argument){
+        isLoading.setValue(true);
         requests.getById(argument, new myCallback<Recipe>() {
             @Override
             public void callbackCall(Recipe result) {
+                isLoading.setValue(false);
                 singleQueryResult.postValue(result);
             }
         });

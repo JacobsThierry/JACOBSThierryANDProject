@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     FoodAdapter adapter;
 
     RecipeModel viewModel = new RecipeModel();
+    ProgressBar progressBar;
 
 
     @Nullable
@@ -64,7 +66,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
         recyclerView = getView().findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
-
+        progressBar = getView().findViewById(R.id.home_progress_bar);
         final OnListItemClickListener lis = this;
         if(list == null) list=new ArrayList<>();
         adapter = new FoodAdapter(list, lis);
@@ -79,6 +81,14 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
                 adapter.setFood(new ArrayList<Recipe>(list));
                 adapter.notifyDataSetChanged();;
 
+            }
+        });
+
+        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                int visible = aBoolean?View.VISIBLE:View.INVISIBLE;
+                progressBar.setVisibility(visible);
             }
         });
 

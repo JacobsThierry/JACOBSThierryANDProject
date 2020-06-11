@@ -1,86 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/food_item_image"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
-            android:scaleType="centerCrop" />
+            android:layout_height="150dp">
 
-        <TextView
-            android:id="@+id/recipe_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="53dp"
-            android:shadowColor="#000000"
-            android:shadowDx="1.5"
-            android:shadowDy="1.3"
-            android:text="@string/lorem_ipsum"
-            android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            <ImageView
+                android:id="@+id/food_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/IngredientAmountText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginBottom="53dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1.5"
+                android:shadowDy="1.3"
+                android:text="@string/lorem_ipsum"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
 
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            style="@style/TextDescriptionFood"
-            android:layout_marginStart="13dp"
-            android:layout_marginBottom="23dp"
+            <TextView
+                android:id="@+id/IngredientAmountText"
+                style="@style/TextDescriptionFood"
+                android:layout_width="wrap_content"
 
-            android:text="999" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="13dp"
+                android:layout_marginBottom="23dp"
 
-        <TextView
-            android:id="@+id/IngredientText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextDescriptionFood"
-            android:layout_alignBottom="@+id/IngredientAmountText"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/IngredientAmountText"
-            android:text="@string/ingredients" />
+                android:text="999" />
 
-        <TextView
-            android:id="@+id/textPricePerServingAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextDescriptionFood"
-            android:layout_alignBottom="@+id/IngredientText"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/IngredientText"
-            android:text="999" />
+            <TextView
+                android:id="@+id/IngredientText"
+                style="@style/TextDescriptionFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/IngredientAmountText"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/IngredientAmountText"
+                android:text="@string/ingredients" />
 
-        <TextView
-            android:id="@+id/pricePerServingText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextDescriptionFood"
-            android:layout_alignBottom="@+id/textPricePerServingAmount"
-            android:layout_marginStart="4dp"
+            <TextView
+                android:id="@+id/textPricePerServingAmount"
+                style="@style/TextDescriptionFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/IngredientText"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/IngredientText"
+                android:text="999" />
 
-            android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/textPricePerServingAmount"
-            android:text="Price per Serving" />
+            <TextView
+                android:id="@+id/pricePerServingText"
+                style="@style/TextDescriptionFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textPricePerServingAmount"
+                android:layout_marginStart="4dp"
 
-    </RelativeLayout>
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/textPricePerServingAmount"
+                android:text="Price per Serving" />
 
+        </RelativeLayout>
 
 
         <ScrollView
@@ -88,36 +98,45 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:padding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     style="@android:style/TextAppearance.DeviceDefault.Large"
-                    android:text="Ingredients"
-                    />
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Ingredients" />
+
+                <TextView
                     android:id="@+id/textIngredientList"
-                    android:text="@string/lorem_ipsum"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem_ipsum" />
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
                     android:id="@+id/textInstruction"
-                    android:text="@string/lorem_ipsum"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/lorem_ipsum" />
 
             </LinearLayout>
 
 
         </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
