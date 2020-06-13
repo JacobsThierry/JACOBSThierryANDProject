@@ -51,19 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        firebase firebase = new firebase();
-        LiveData<ArrayList<Comment>> az = firebase.getLiveData();
-
-        firebase.getComments(1);
-        az.observe(this, new Observer<ArrayList<Comment>>() {
-            @Override
-            public void onChanged(ArrayList<Comment> comments) {
-                if(comments != null)
-                Log.d("food com", comments.toString());
-            }
-        });
-
-
 
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);

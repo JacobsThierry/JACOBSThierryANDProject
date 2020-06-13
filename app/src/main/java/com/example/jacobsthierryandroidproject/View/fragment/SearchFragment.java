@@ -23,6 +23,7 @@ import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
 import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
+import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodFragmentStateAdapter;
 import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment;
 
 import java.util.ArrayList;
@@ -153,11 +154,14 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
 
     @Override
     public void onClick(Recipe food) {
-
+/*
         foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment.newInstance(food);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();
-
+*/
+        foodFragmentStateAdapter az = foodFragmentStateAdapter.getInstance(food);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, az, "foodFragment").addToBackStack(null).commit();
 
         viewModel.queryById(food.getId());
 

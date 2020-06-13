@@ -1,6 +1,7 @@
 package com.example.jacobsthierryandroidproject.Repository.Firebase;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +23,13 @@ public class firebase {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     MutableLiveData<ArrayList<Comment>> mutableLiveData = new MutableLiveData<>();
-    ArrayList<Comment> comments;
+    ArrayList<Comment> comments = new ArrayList<>();
 
 
-    public firebase(){}
+    public firebase(Recipe recipe){
+        comments = new ArrayList<>();
+        getComments(recipe);
+    }
 
     public void addComment(Comment com){
         DatabaseReference databaseReference = database.getReference();
@@ -41,20 +45,23 @@ public class firebase {
         getComments(recipe.getId());
     }
 
-    public void getComments(int r){
-        final DatabaseReference ref = database.getReference().child("comments").child(Integer.toString(r));
+    private void getComments(int r){
+        final DatabaseReference ref = database.getReference().child(Integer.toString(r));
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                comments = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     comments.add(child.getValue(Comment.class));
                 }
                 mutableLiveData.postValue(comments);
 
+                Log.d("fodd add", "listener");
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
                         comments.add(dataSnapshot.getValue(Comment.class));
                         mutableLiveData.postValue(comments);
                     }

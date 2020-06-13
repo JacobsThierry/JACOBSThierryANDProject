@@ -1,5 +1,7 @@
 package com.example.jacobsthierryandroidproject.View.fragment.recipePage;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,8 @@ import com.example.jacobsthierryandroidproject.Pojo.Comment;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
 import com.example.jacobsthierryandroidproject.View.adapter.CommentsAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,10 +76,45 @@ public class CommentsFragment extends Fragment {
                 list = (List<Comment>) savedInstanceState.getSerializable("list") ;}}}
 
 
+                int SECOND_ACT = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SECOND_ACT){
+            Log.d("food requestCode", Integer.toString(requestCode));
+
+            if(resultCode == Activity.RESULT_OK){
+
+                String result = data.getStringExtra("result");
+                Log.d("food result", result);
+                model.addComment(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), result, recipe.getId());
+            }
+        }
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-        if(model == null) model = new CommentsModel(getActivity().getApplication());
+        final Fragment act = this;
+        FloatingActionButton fab = getView().findViewById(R.id.btn_add_comment);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) fab.setVisibility(View.INVISIBLE);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(act.getContext(), addComment.class);
+                startActivityForResult(i, SECOND_ACT);
+
+            }
+        });
+
+
+
+        if(model == null) model = new CommentsModel(getActivity().getApplication(), recipe);
         recyclerView = getView().findViewById(R.id.rv_comment);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
@@ -98,4 +137,5 @@ public class CommentsFragment extends Fragment {
         }
 
     }
+
 }

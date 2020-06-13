@@ -16,10 +16,10 @@ public class CommentsModel extends AndroidViewModel {
 
 
     LiveData<Comment> recipesLivedata = new MutableLiveData<>();
-    firebase fb = new firebase();
+    firebase fb;
 
-    public CommentsModel(Application application){
-        super(application);
+    public CommentsModel(Application application, Recipe recipe){
+        super(application); fb = new firebase(recipe);
     }
 
     public LiveData<ArrayList<Comment>> getComments(Recipe recipe){
@@ -27,7 +27,6 @@ public class CommentsModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<Comment>> getComments(int id){
-        fb.getComments(id);
         return fb.getLiveData();
     }
 
