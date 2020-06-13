@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,8 @@ public class ProfileFragment extends Fragment {
                 logOut();
             }
         });
+        TextView tv = getView().findViewById(R.id.profileText);
+        tv.setText(getString(R.string.Hi) + FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
     }
 

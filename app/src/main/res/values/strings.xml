@@ -20,4 +20,5 @@
     <string name="Comments">Comments</string>
     <string name="add_a_comment">add a comment</string>
     <string name="subbmit">Subbmit</string>
+    <string name="Hi">\"Hi \"</string>
 </resources>
