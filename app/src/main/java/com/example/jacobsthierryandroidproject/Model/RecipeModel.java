@@ -7,13 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
 import com.example.jacobsthierryandroidproject.Repository.Repository;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.RecipeResponse;
 
 import java.util.ArrayList;
 import java.util.List;

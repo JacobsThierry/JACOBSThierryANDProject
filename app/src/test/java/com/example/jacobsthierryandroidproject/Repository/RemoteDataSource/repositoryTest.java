@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.RecipeResponse;
 import com.example.jacobsthierryandroidproject.Repository.Repository;
 
 import junit.framework.TestCase;

@@ -1,6 +1,4 @@
-package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource;
-
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.FoodApi;
+package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -33,6 +33,8 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     RecipeModel viewModel ;
     ProgressBar progressBar;
 
+    private static String KEY = "ABC123ABC456";
+
 
     @Nullable
     @Override
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if(list != null){
-        outState.putSerializable("list", new ArrayList<Recipe>(list));
+        outState.putSerializable(KEY, new ArrayList<Recipe>(list));
         }
     }
 
@@ -52,7 +54,7 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if(savedInstanceState != null){
-        if(savedInstanceState.getSerializable("list") != null){
+        if(savedInstanceState.getSerializable(KEY) != null){
             Log.d("aa", "aa");
         list = (List<Recipe>) savedInstanceState.getSerializable("list") ;}}}
 

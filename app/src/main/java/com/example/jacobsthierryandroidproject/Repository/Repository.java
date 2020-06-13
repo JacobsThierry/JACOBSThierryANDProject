@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
@@ -17,9 +15,9 @@ import retrofit2.Response;
 
 import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.DAO.RecipeDao;
 import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.Database.RecipeDatabase;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.FoodApi;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.ServiceGenerator;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.FoodApi;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.ServiceGenerator;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.RecipeResponse;
 
 import java.util.List;
 

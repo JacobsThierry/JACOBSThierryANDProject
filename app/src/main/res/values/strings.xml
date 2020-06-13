@@ -12,4 +12,8 @@
     <string name="action_search">Search</string>
     <string name="Removed">Removed from favorite</string>
     <string name="AddedToFav">Added to favorites</string>
+    <string name="signin_cancelled">Sign in cancelled</string>
+    <string name="no_internet">No Internet connection</string>
+    <string name="ue">Unknown error</string>
+    <string name="log_out">Log out</string>
 </resources>

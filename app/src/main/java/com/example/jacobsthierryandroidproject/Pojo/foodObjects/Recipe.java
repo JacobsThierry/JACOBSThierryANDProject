@@ -1,22 +1,17 @@
 package com.example.jacobsthierryandroidproject.Pojo.foodObjects;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.text.Html;
-import android.text.Spannable;
 import android.text.Spanned;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 import com.example.jacobsthierryandroidproject.Pojo.Ingredient;
 import com.example.jacobsthierryandroidproject.Pojo.Instructions.instruction;
 import com.example.jacobsthierryandroidproject.Pojo.Instructions.step;
-import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.DataConverter;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.ServiceGenerator;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.ServiceGenerator;
 
 import java.io.Serializable;
 import java.util.List;

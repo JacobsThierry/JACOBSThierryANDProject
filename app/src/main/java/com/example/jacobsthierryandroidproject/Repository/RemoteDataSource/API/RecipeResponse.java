@@ -1,4 +1,4 @@
-package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses;
+package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.google.gson.annotations.SerializedName;

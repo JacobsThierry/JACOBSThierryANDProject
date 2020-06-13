@@ -1,8 +1,7 @@
-package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource;
+package com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API;
 
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.responses.RecipeResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
