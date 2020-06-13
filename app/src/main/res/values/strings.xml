@@ -16,4 +16,6 @@
     <string name="no_internet">No Internet connection</string>
     <string name="ue">Unknown error</string>
     <string name="log_out">Log out</string>
+    <string name="Recipe">Recipe</string>
+    <string name="Comments">Comments</string>
 </resources>

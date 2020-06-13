@@ -1,11 +1,8 @@
-package com.example.jacobsthierryandroidproject.View.fragment;
+package com.example.jacobsthierryandroidproject.View.fragment.recipePage;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,19 +18,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.io.InputStream;
-import java.net.URL;
 
 public class foodItemFragment extends Fragment {
 

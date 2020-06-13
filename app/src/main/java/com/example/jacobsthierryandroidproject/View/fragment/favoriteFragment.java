@@ -1,12 +1,10 @@
 package com.example.jacobsthierryandroidproject.View.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
-import com.example.jacobsthierryandroidproject.Repository.Repository;
 import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
+import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class favoriteFragment extends Fragment implements OnListItemClickListene
 
     @Override
     public void onClick(Recipe food) {
-        foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.foodItemFragment.newInstance(food);
+        foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment.newInstance(food);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();
     }

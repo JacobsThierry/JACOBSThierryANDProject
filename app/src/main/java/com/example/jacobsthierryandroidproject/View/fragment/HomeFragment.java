@@ -1,6 +1,5 @@
 package com.example.jacobsthierryandroidproject.View.fragment;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +19,8 @@ import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
+import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodFragmentStateAdapter;
+import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,8 +103,11 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     @Override
     public void onClick(Recipe position) {
         Log.d("food home", position.toString());
-        foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.foodItemFragment.newInstance(position);
+        /*foodItemFragment foodItemFragment = com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment.newInstance(position);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();
+                .replace(R.id.fragment_container, foodItemFragment, "foodFragment").addToBackStack(null).commit();*/
+        foodFragmentStateAdapter az = foodFragmentStateAdapter.getInstance(position);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, az, "foodFragment").addToBackStack(null).commit();
     }
 }

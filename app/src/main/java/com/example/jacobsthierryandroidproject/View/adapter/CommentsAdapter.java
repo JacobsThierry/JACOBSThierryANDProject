@@ -20,6 +20,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     ArrayList<Comment> comments;
 
 
+    public CommentsAdapter(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
     public ArrayList<Comment> getComments() {
         return comments;
     }
@@ -46,6 +50,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        if(comments == null) return 0;
         return comments.size();
     }
 

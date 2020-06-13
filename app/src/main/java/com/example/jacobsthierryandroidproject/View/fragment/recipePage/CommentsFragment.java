@@ -1,4 +1,4 @@
-package com.example.jacobsthierryandroidproject.View.fragment;
+package com.example.jacobsthierryandroidproject.View.fragment.recipePage;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +25,7 @@ import java.util.List;
 public class CommentsFragment extends Fragment {
 
     RecyclerView recyclerView;
-    List<Comment> list;
+    List<Comment> list = new ArrayList<>();
     CommentsAdapter adapter;
     CommentsModel model;
     Recipe recipe;
@@ -82,15 +82,17 @@ public class CommentsFragment extends Fragment {
 
         if(list == null) list=new ArrayList<>();
 
-        adapter = new CommentsAdapter();
+        adapter = new CommentsAdapter(new ArrayList<Comment>(list));
         recyclerView.setAdapter(adapter);
 
         if(recipe != null){
             model.getComments(recipe).observe(this, new Observer<ArrayList<Comment>>() {
                 @Override
                 public void onChanged(ArrayList<Comment> comments) {
+                    if(comments != null){
                     adapter.setComments(comments);
                     adapter.notifyDataSetChanged();
+                    }
                 }
             });
         }
