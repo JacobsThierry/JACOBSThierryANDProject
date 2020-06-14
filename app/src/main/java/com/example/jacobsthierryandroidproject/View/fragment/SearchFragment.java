@@ -24,7 +24,6 @@ import com.example.jacobsthierryandroidproject.R;
 import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
 import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodFragmentStateAdapter;
-import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     RecipeModel viewModel;
     ProgressBar progressBar;
 
-    private static String QUERYKEY="querry";
+    private static String QUERYKEY = "querry";
 
 
     @Nullable
@@ -57,7 +56,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(list != null){
+        if (list != null) {
             outState.putSerializable("list", new ArrayList<Recipe>(list));
         }
     }
@@ -65,10 +64,13 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null){
-            if(savedInstanceState.getSerializable("list") != null){
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable("list") != null) {
                 Log.d("aa", "aa");
-                list = (List<Recipe>) savedInstanceState.getSerializable("list") ;}}}
+                list = (List<Recipe>) savedInstanceState.getSerializable("list");
+            }
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -81,9 +83,9 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query != null && query.trim() != ""){
-                   viewModel.queryByName(query);
-                }else{
+                if (query != null && query.trim() != "") {
+                    viewModel.queryByName(query);
+                } else {
                     adapter.setFood(new ArrayList<Recipe>());
                     adapter.notifyDataSetChanged();
                 }
@@ -97,7 +99,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
             }
         });
 
-        if(searchString != null && !searchString.isEmpty()){
+        if (searchString != null && !searchString.isEmpty()) {
             searchItem.expandActionView();
             searchView.setQuery(searchString, true);
             searchView.clearFocus();
@@ -109,16 +111,14 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
     @Override
     public void onStart() {
         super.onStart();
-        if(viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
+        if (viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
         recyclerView = getView().findViewById(R.id.search_rv);
         final OnListItemClickListener lis = this;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
-        if(list==null) list = new ArrayList<>();
+        if (list == null) list = new ArrayList<>();
 
         adapter = new FoodAdapter(list, lis);
-
-
 
 
         recyclerView.setAdapter(adapter);
@@ -127,7 +127,7 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
         viewModel.getQueryResult().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
             public void onChanged(ArrayList<Recipe> recipes) {
-                if(recipes == null) list = new ArrayList<>();
+                if (recipes == null) list = new ArrayList<>();
                 else list = recipes;
                 Log.d("onChanged", recipes.toString());
                 adapter.setFood(new ArrayList<Recipe>(list));
@@ -140,14 +140,10 @@ public class SearchFragment extends Fragment implements OnListItemClickListener 
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                int visible = aBoolean?View.VISIBLE:View.INVISIBLE;
+                int visible = aBoolean ? View.VISIBLE : View.INVISIBLE;
                 progressBar.setVisibility(visible);
             }
         });
-
-
-
-
 
 
     }

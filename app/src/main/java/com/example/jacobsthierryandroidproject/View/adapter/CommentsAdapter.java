@@ -3,19 +3,17 @@ package com.example.jacobsthierryandroidproject.View.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jacobsthierryandroidproject.Model.RecipeModel;
 import com.example.jacobsthierryandroidproject.Pojo.Comment;
 import com.example.jacobsthierryandroidproject.R;
 
 import java.util.ArrayList;
 
-public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder>{
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     ArrayList<Comment> comments;
 
@@ -50,7 +48,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if(comments == null) return 0;
+        if (comments == null) return 0;
         return comments.size();
     }
 
@@ -66,4 +64,5 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
 
 
-    }}
+    }
+}

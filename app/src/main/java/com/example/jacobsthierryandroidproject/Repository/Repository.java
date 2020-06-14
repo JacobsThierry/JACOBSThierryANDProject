@@ -8,18 +8,17 @@ import androidx.lifecycle.LiveData;
 
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.Pojo.myCallback;
+import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.DAO.RecipeDao;
+import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.Database.RecipeDatabase;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.FoodApi;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.RecipeResponse;
+import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.ServiceGenerator;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.DAO.RecipeDao;
-import com.example.jacobsthierryandroidproject.Repository.LocalDataSource.Database.RecipeDatabase;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.FoodApi;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.ServiceGenerator;
-import com.example.jacobsthierryandroidproject.Repository.RemoteDataSource.API.RecipeResponse;
-
-import java.util.List;
 
 public class Repository {
 
@@ -28,25 +27,25 @@ public class Repository {
     private LiveData<List<Recipe>> favourites;
     private LiveData<Boolean> isInFavoriteData;
 
-    public static synchronized Repository getInstance(Application application){
-        if(instance == null) instance = new Repository(application);
+    public static synchronized Repository getInstance(Application application) {
+        if (instance == null) instance = new Repository(application);
         return instance;
     }
 
 
-    private Repository(Application application){
+    private Repository(Application application) {
         RecipeDatabase database = RecipeDatabase.getInstance(application);
         recipeDao = database.getRecipeDao();
         favourites = recipeDao.getAllFavourites();
     }
 
-    public static void requestRandom(final myCallback<RecipeResponse> callback, int number){
+    public static void requestRandom(final myCallback<RecipeResponse> callback, int number) {
         FoodApi foodApi = ServiceGenerator.getFoodApi();
         Call<RecipeResponse> call = foodApi.popularFood(ServiceGenerator.ApiKey, number);
         call.enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     callback.callbackCall(response.body());
                 }
             }
@@ -60,15 +59,15 @@ public class Repository {
 
     }
 
-    public static void requestFood(String query, final myCallback<RecipeResponse> callback){
+    public static void requestFood(String query, final myCallback<RecipeResponse> callback) {
         FoodApi foodApi = ServiceGenerator.getFoodApi();
         Call<RecipeResponse> call = foodApi.searchFood(query, ServiceGenerator.ApiKey);
         call.enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 Log.d("food resp", Integer.toString(response.code()));
-               // Log.d("food resp", response.body().toString());
-                if(response.code() == 200){
+                // Log.d("food resp", response.body().toString());
+                if (response.code() == 200) {
                     Log.d("food rest", response.body().toString());
                     callback.callbackCall(response.body());
                 }
@@ -81,7 +80,7 @@ public class Repository {
         });
     }
 
-    public static void getById(int id, final myCallback<Recipe> callback){
+    public static void getById(int id, final myCallback<Recipe> callback) {
         FoodApi foodApi = ServiceGenerator.getFoodApi();
         Call<Recipe> call = foodApi.getById(id, ServiceGenerator.ApiKey);
         call.enqueue(new Callback<Recipe>() {
@@ -89,7 +88,7 @@ public class Repository {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 Log.d("food resp", Integer.toString(response.code()));
                 //Log.d("food resp", response.body().toString());
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     callback.callbackCall(response.body());
                 }
             }
@@ -103,25 +102,24 @@ public class Repository {
     }
 
 
-    public LiveData<List<Recipe>> getFavourites(){
+    public LiveData<List<Recipe>> getFavourites() {
 
         favourites = recipeDao.getAllFavourites();
         return favourites;
 
     }
 
-    public void addRecipeToFavourites(Recipe recipe){
+    public void addRecipeToFavourites(Recipe recipe) {
 
         new InsertRecipeAsync(recipeDao).execute(recipe);
     }
 
 
-
-    public void removeRecipeFromFavourites(Recipe recipe){
+    public void removeRecipeFromFavourites(Recipe recipe) {
         new RemoveRecipeAsync(recipeDao).execute(recipe);
     }
 
-    public void changeFavorite(final Recipe recipe){
+    public void changeFavorite(final Recipe recipe) {
         Log.d("food ", "Change favorite 1");
         new ChangeFavoriteAsync(recipeDao).execute(recipe);
 
@@ -129,23 +127,21 @@ public class Repository {
     }
 
 
-        public void isInFavorite(Recipe recipe){
+    public void isInFavorite(Recipe recipe) {
         Log.d("food ", "is in favorite");
-            isInFavoriteData = recipeDao.isRecipeInFavorite(recipe.getId());
-        }
+        isInFavoriteData = recipeDao.isRecipeInFavorite(recipe.getId());
+    }
 
-        public LiveData<Boolean> getIsInFavoriteData(){
+    public LiveData<Boolean> getIsInFavoriteData() {
         return isInFavoriteData;
-        }
-
-
+    }
 
 
     private static class InsertRecipeAsync extends AsyncTask<Recipe, Void, Void> {
 
         private RecipeDao recipeDao;
 
-        private InsertRecipeAsync(RecipeDao recipeDao){
+        private InsertRecipeAsync(RecipeDao recipeDao) {
             this.recipeDao = recipeDao;
         }
 
@@ -159,31 +155,31 @@ public class Repository {
         }
     }
 
-    private static class ChangeFavoriteAsync extends AsyncTask<Recipe, Void, Void>{
+    private static class ChangeFavoriteAsync extends AsyncTask<Recipe, Void, Void> {
 
         private RecipeDao recipeDao;
 
-        private ChangeFavoriteAsync(RecipeDao recipeDao){
+        private ChangeFavoriteAsync(RecipeDao recipeDao) {
             this.recipeDao = recipeDao;
         }
 
         @Override
         protected Void doInBackground(Recipe... recipes) {
             Boolean boo = recipeDao.isRecipeInFavoriteSynch(recipes[0].getId());
-            if(boo){
+            if (boo) {
                 recipeDao.delete(recipes[0]);
-            }else{
+            } else {
                 recipeDao.insert(recipes[0]);
             }
             return null;
         }
     }
 
-    private static class RemoveRecipeAsync extends AsyncTask<Recipe, Void, Void>{
+    private static class RemoveRecipeAsync extends AsyncTask<Recipe, Void, Void> {
 
         private RecipeDao recipeDao;
 
-        private RemoveRecipeAsync(RecipeDao recipeDao){
+        private RemoveRecipeAsync(RecipeDao recipeDao) {
             this.recipeDao = recipeDao;
         }
 

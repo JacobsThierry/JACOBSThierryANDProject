@@ -24,7 +24,7 @@ public class ServiceGenerator {
     private static Retrofit retrofit = retrofitBuilder.build();
     private static FoodApi foodApi = retrofit.create(FoodApi.class);
 
-    public static FoodApi getFoodApi(){
+    public static FoodApi getFoodApi() {
         return foodApi;
     }
 

@@ -1,6 +1,5 @@
 package com.example.jacobsthierryandroidproject.Repository.Firebase;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,29 +23,33 @@ public class firebase {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     MutableLiveData<ArrayList<Comment>> mutableLiveData = new MutableLiveData<>();
     ArrayList<Comment> comments = new ArrayList<>();
+    DatabaseReference reference;
+    static String COMMENT_PATH = "comments";
 
 
-    public firebase(Recipe recipe){
+    public firebase(Recipe recipe) {
         comments = new ArrayList<>();
+        reference = database.getReference().child(COMMENT_PATH);
         getComments(recipe);
     }
 
-    public void addComment(Comment com){
-        DatabaseReference databaseReference = database.getReference();
-        databaseReference.child(Integer.toString(com.getRecipeId())).push().setValue(com);
+    public void addComment(Comment com) {
+
+        reference.child(Integer.toString(com.getRecipeId())).push().setValue(com);
 
     }
 
-    public LiveData<ArrayList<Comment>> getLiveData(){
+    public LiveData<ArrayList<Comment>> getLiveData() {
         return mutableLiveData;
     }
 
-    public void getComments(Recipe recipe){
+    public void getComments(Recipe recipe) {
         getComments(recipe.getId());
     }
 
-    private void getComments(int r){
-        final DatabaseReference ref = database.getReference().child(Integer.toString(r));
+    private void getComments(int r) {
+
+        final DatabaseReference ref = reference.child(Integer.toString(r));
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,7 +99,6 @@ public class firebase {
             }
         });
     }
-
 
 
 }

@@ -10,13 +10,11 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 
 import com.example.jacobsthierryandroidproject.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class addComment extends Activity {
 
     EditText text;
     Button button;
-
 
 
     @Override

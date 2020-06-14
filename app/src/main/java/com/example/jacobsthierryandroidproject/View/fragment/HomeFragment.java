@@ -15,23 +15,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
-import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.Pojo.foodObjects.Recipe;
 import com.example.jacobsthierryandroidproject.R;
+import com.example.jacobsthierryandroidproject.View.adapter.FoodAdapter;
 import com.example.jacobsthierryandroidproject.View.adapter.OnListItemClickListener;
 import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodFragmentStateAdapter;
-import com.example.jacobsthierryandroidproject.View.fragment.recipePage.foodItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements OnListItemClickListener{
+public class HomeFragment extends Fragment implements OnListItemClickListener {
 
     RecyclerView recyclerView;
     List<Recipe> list;
     FoodAdapter adapter;
 
-    RecipeModel viewModel ;
+    RecipeModel viewModel;
     ProgressBar progressBar;
 
     private static String KEY = "ABC123ABC456";
@@ -46,42 +45,45 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(list != null){
-        outState.putSerializable(KEY, new ArrayList<Recipe>(list));
+        if (list != null) {
+            outState.putSerializable(KEY, new ArrayList<Recipe>(list));
         }
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null){
-        if(savedInstanceState.getSerializable(KEY) != null){
-            Log.d("aa", "aa");
-        list = (List<Recipe>) savedInstanceState.getSerializable("list") ;}}}
-
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable(KEY) != null) {
+                Log.d("aa", "aa");
+                list = (List<Recipe>) savedInstanceState.getSerializable("list");
+            }
+        }
+    }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        if(viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
+        if (viewModel == null) viewModel = new RecipeModel(getActivity().getApplication());
         recyclerView = getView().findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
         progressBar = getView().findViewById(R.id.home_progress_bar);
         final OnListItemClickListener lis = this;
-        if(list == null) list=new ArrayList<>();
+        if (list == null) list = new ArrayList<>();
         adapter = new FoodAdapter(list, lis);
         recyclerView.setAdapter(adapter);
 
         viewModel.getQueryResult().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
             public void onChanged(ArrayList<Recipe> recipes) {
-                if(recipes == null) list = new ArrayList<>();
+                if (recipes == null) list = new ArrayList<>();
                 else list = recipes;
                 Log.d("onChanged", recipes.toString());
                 adapter.setFood(new ArrayList<Recipe>(list));
-                adapter.notifyDataSetChanged();;
+                adapter.notifyDataSetChanged();
+                ;
 
             }
         });
@@ -89,13 +91,12 @@ public class HomeFragment extends Fragment implements OnListItemClickListener{
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                int visible = aBoolean?View.VISIBLE:View.INVISIBLE;
+                int visible = aBoolean ? View.VISIBLE : View.INVISIBLE;
                 progressBar.setVisibility(visible);
             }
         });
 
-        if(list.size() < 1) viewModel.queryRandom();
-
+        if (list.size() < 1) viewModel.queryRandom();
 
 
     }

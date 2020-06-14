@@ -1,12 +1,7 @@
 package com.example.jacobsthierryandroidproject.View.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.sip.SipSession;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,20 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.jacobsthierryandroidproject.MainActivity;
 import com.example.jacobsthierryandroidproject.R;
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class ProfileFragment extends Fragment {
-
 
 
     @Nullable
@@ -44,7 +33,7 @@ public class ProfileFragment extends Fragment {
         super.onStart();
 
         Button b = getView().findViewById(R.id.buttonLogOut);
-        b.setOnClickListener(new View.OnClickListener(){
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logOut();
@@ -55,7 +44,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    public void logOut(){
+    public void logOut() {
         final Fragment frag = this;
         AuthUI.getInstance().signOut(getContext()).addOnCompleteListener(new OnCompleteListener<Void>() {
 

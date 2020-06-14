@@ -38,7 +38,7 @@ public class CommentsFragment extends Fragment {
     private static String KEY = "azjioeazjpoiazp";
 
 
-    public static CommentsFragment newInstance(Recipe recipe){
+    public static CommentsFragment newInstance(Recipe recipe) {
         CommentsFragment frag = new CommentsFragment();
         Bundle arg = new Bundle();
         arg.putSerializable(KEYRECIPE, recipe);
@@ -51,8 +51,8 @@ public class CommentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle arg = getArguments();
-        if(arg != null){
-            if(arg.getSerializable(KEYRECIPE) != null){
+        if (arg != null) {
+            if (arg.getSerializable(KEYRECIPE) != null) {
                 this.recipe = (Recipe) arg.getSerializable(KEYRECIPE);
             }
         }
@@ -62,7 +62,7 @@ public class CommentsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(list != null){
+        if (list != null) {
             outState.putSerializable(KEY, new ArrayList<Comment>(list));
         }
     }
@@ -70,22 +70,25 @@ public class CommentsFragment extends Fragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null){
-            if(savedInstanceState.getSerializable(KEY) != null){
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable(KEY) != null) {
                 Log.d("aa", "aa");
-                list = (List<Comment>) savedInstanceState.getSerializable("list") ;}}}
+                list = (List<Comment>) savedInstanceState.getSerializable("list");
+            }
+        }
+    }
 
 
-                int SECOND_ACT = 1;
+    int SECOND_ACT = 1;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == SECOND_ACT){
+        if (requestCode == SECOND_ACT) {
             Log.d("food requestCode", Integer.toString(requestCode));
 
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
 
                 String result = data.getStringExtra("result");
                 Log.d("food result", result);
@@ -101,7 +104,7 @@ public class CommentsFragment extends Fragment {
         final Fragment act = this;
         FloatingActionButton fab = getView().findViewById(R.id.btn_add_comment);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) fab.setVisibility(View.INVISIBLE);
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) fab.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,24 +116,23 @@ public class CommentsFragment extends Fragment {
         });
 
 
-
-        if(model == null) model = new CommentsModel(getActivity().getApplication(), recipe);
+        if (model == null) model = new CommentsModel(getActivity().getApplication(), recipe);
         recyclerView = getView().findViewById(R.id.rv_comment);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
 
-        if(list == null) list=new ArrayList<>();
+        if (list == null) list = new ArrayList<>();
 
         adapter = new CommentsAdapter(new ArrayList<Comment>(list));
         recyclerView.setAdapter(adapter);
 
-        if(recipe != null){
+        if (recipe != null) {
             model.getComments(recipe).observe(this, new Observer<ArrayList<Comment>>() {
                 @Override
                 public void onChanged(ArrayList<Comment> comments) {
-                    if(comments != null){
-                    adapter.setComments(comments);
-                    adapter.notifyDataSetChanged();
+                    if (comments != null) {
+                        adapter.setComments(comments);
+                        adapter.notifyDataSetChanged();
                     }
                 }
             });

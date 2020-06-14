@@ -24,6 +24,5 @@ public class RecipFragment extends Fragment {
         super.onStart();
 
 
-
     }
 }

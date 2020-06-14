@@ -1,6 +1,5 @@
 package com.example.jacobsthierryandroidproject.Repository.LocalDataSource;
 
-import androidx.room.Database;
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -14,14 +13,15 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class DataConverterTest {
 
     RecipeDatabase recipeDatabase;
     RecipeDao recipeDao;
+
     @Before
-    public void createDb(){
+    public void createDb() {
 
         recipeDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().getContext(), RecipeDatabase.class).build();
         recipeDao = recipeDatabase.getRecipeDao();
@@ -33,14 +33,13 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testAddRecipe(){
-        Recipe recipe = new Recipe(1,"az","az0, 1", 1, null,
+    public void testAddRecipe() {
+        Recipe recipe = new Recipe(1, "az", "az0, 1", 1, null,
                 null, "az", "az", 5, 1, "az");
         recipeDao.insert(recipe);
         assertTrue(recipeDao.getAllFavouritesSync().size() == 1);
 
     }
 
-    
 
 }

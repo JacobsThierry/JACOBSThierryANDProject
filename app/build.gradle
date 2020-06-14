@@ -29,6 +29,7 @@ android {
 
 dependencies {
     implementation 'androidx.room:room-runtime:2.2.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-rc01'
     annotationProcessor 'androidx.room:room-compiler:2.2.2'
 
     implementation 'com.google.firebase:firebase-database:19.3.0'
@@ -74,11 +75,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
 
 
     testImplementation 'androidx.test:core:1.0.0'

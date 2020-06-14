@@ -1,6 +1,5 @@
 package com.example.jacobsthierryandroidproject.View.adapter;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jacobsthierryandroidproject.Model.RecipeModel;
@@ -24,7 +22,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     ArrayList<Recipe> food;
     OnListItemClickListener listener;
 
-    public FoodAdapter(List<Recipe> food, OnListItemClickListener listener){
+    public FoodAdapter(List<Recipe> food, OnListItemClickListener listener) {
         this.food = new ArrayList<>(food);
         this.listener = listener;
 
@@ -55,21 +53,19 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
 
 
-
     @Override
     public int getItemCount() {
         return food.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         ImageView image;
         RecipeModel viewModel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -82,12 +78,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         }
 
 
-
-
     }
-
-
-
 
 
 }

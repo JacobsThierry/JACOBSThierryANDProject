@@ -22,14 +22,13 @@ public class foodFragmentStateAdapter extends Fragment {
     ViewPager2 viewPager;
     Recipe recipe;
 
-    public static foodFragmentStateAdapter getInstance(Recipe rec){
+    public static foodFragmentStateAdapter getInstance(Recipe rec) {
         foodFragmentStateAdapter foodItemFragment = new foodFragmentStateAdapter();
         Bundle arg = new Bundle();
         arg.putSerializable("food", rec);
         foodItemFragment.setArguments(arg);
         return foodItemFragment;
     }
-
 
 
     @Nullable
@@ -56,10 +55,15 @@ public class foodFragmentStateAdapter extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 String text;
-                switch(position){
-                    case 0 : text = getString(R.string.Recipe) ; break;
-                    case 1 : text = getString(R.string.Comments); break;
-                    default: text = "tab";
+                switch (position) {
+                    case 0:
+                        text = getString(R.string.Recipe);
+                        break;
+                    case 1:
+                        text = getString(R.string.Comments);
+                        break;
+                    default:
+                        text = "tab";
                 }
                 tab.setText(text);
             }
@@ -67,8 +71,8 @@ public class foodFragmentStateAdapter extends Fragment {
 
     }
 
-    public class DemoCollectionAdapter extends FragmentStateAdapter{
-        public DemoCollectionAdapter(Fragment fragment){
+    public class DemoCollectionAdapter extends FragmentStateAdapter {
+        public DemoCollectionAdapter(Fragment fragment) {
             super(fragment);
         }
 
@@ -76,10 +80,15 @@ public class foodFragmentStateAdapter extends Fragment {
         @Override
         public Fragment createFragment(int position) {
             Fragment fragment;
-            switch(position){
-                case 0 : fragment = foodItemFragment.newInstance(recipe); break;
-                case 1 : fragment = CommentsFragment.newInstance(recipe);break;
-                default : fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = foodItemFragment.newInstance(recipe);
+                    break;
+                case 1:
+                    fragment = CommentsFragment.newInstance(recipe);
+                    break;
+                default:
+                    fragment = null;
             }
 
             return fragment;
@@ -90,7 +99,6 @@ public class foodFragmentStateAdapter extends Fragment {
             return 2;
         }
     }
-
 
 
 }

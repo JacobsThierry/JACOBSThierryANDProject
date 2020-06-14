@@ -1,5 +1,11 @@
 package com.example.jacobsthierryandroidproject;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,17 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.example.jacobsthierryandroidproject.Pojo.Comment;
-import com.example.jacobsthierryandroidproject.Repository.Firebase.firebase;
 import com.example.jacobsthierryandroidproject.View.fragment.HomeFragment;
 import com.example.jacobsthierryandroidproject.View.fragment.ProfileFragment;
 import com.example.jacobsthierryandroidproject.View.fragment.SearchFragment;
@@ -30,7 +26,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,18 +57,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(savedInstanceState == null){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-        navigationView.setCheckedItem(R.id.nav_home);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
     }
-    }
-
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
@@ -82,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_profile:
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user != null){
+                if (user != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
-                }else{
+                } else {
                     login();
                 }
 
@@ -100,13 +94,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void logOut(){
+    public void logOut() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         MenuItem it = findViewById(R.id.nav_home);
         it.setChecked(true);
     }
 
-    void login(){
+    void login() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
@@ -121,17 +115,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d("food main", "result");
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
-            }else{
-                if(response == null){
+            } else {
+                if (response == null) {
                     Snackbar.make(findViewById(R.id.fragment_container), R.string.signin_cancelled, Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                if(response.getError().getErrorCode() == ErrorCodes.NO_NETWORK){
+                if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     Snackbar.make(findViewById(R.id.fragment_container), R.string.no_internet, Snackbar.LENGTH_LONG).show();
                     return;
                 }
@@ -143,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             super.onBackPressed();
         }
 

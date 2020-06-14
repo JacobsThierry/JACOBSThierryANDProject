@@ -6,25 +6,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class FoodApiTest {
 
     FoodApi api;
 
     @Before
-    public void mokeUpWeb(){
+    public void mokeUpWeb() {
         api = ServiceGenerator.getFoodApi();
     }
 
     @Test
-    public void testQuerry(){
+    public void testQuerry() {
         Response<RecipeResponse> r = null;
         try {
             r = api.searchFood("burger", ServiceGenerator.ApiKey).execute();
@@ -35,7 +33,7 @@ public class FoodApiTest {
     }
 
     @Test
-    public void testRandom(){
+    public void testRandom() {
         Response<RecipeResponse> r;
         try {
             r = api.popularFood(ServiceGenerator.ApiKey, 5).execute();
@@ -43,16 +41,16 @@ public class FoodApiTest {
             r = null;
         }
 
-        if(r==null){
+        if (r == null) {
             assertTrue(false);
-        }else{
+        } else {
             assertTrue(r.body().getRecipes().size() == 5);
         }
 
     }
 
     @Test
-    public void testGetById(){
+    public void testGetById() {
         Response<Recipe> r;
         try {
             r = api.getById(1, ServiceGenerator.ApiKey).execute();

@@ -11,7 +11,8 @@ public class Comment implements Serializable {
     @Exclude
     private int recipeId;
 
-    public Comment(){}
+    public Comment() {
+    }
 
     public Comment(String author, String content, int recipeId) {
         this.author = author;

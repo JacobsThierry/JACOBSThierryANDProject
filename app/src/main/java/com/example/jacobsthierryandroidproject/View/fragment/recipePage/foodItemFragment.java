@@ -153,10 +153,10 @@ public class foodItemFragment extends Fragment {
                 } else {
                     fav.setIcon(R.drawable.ic_favorite_border);
                 }
-                if(buttonPressed){
-                    if(aBoolean){
+                if (buttonPressed) {
+                    if (aBoolean) {
                         Toast.makeText(ctx, R.string.AddedToFav, Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(ctx, R.string.Removed, Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -57,8 +57,8 @@ public class Recipe implements Serializable {
     }
 
     public String getImage() {
-        if(image == null) return null;
-        if(image.startsWith(ServiceGenerator.imageUrl)) return image;
+        if (image == null) return null;
+        if (image.startsWith(ServiceGenerator.imageUrl)) return image;
         else return ServiceGenerator.imageUrl + image;
     }
 
@@ -100,7 +100,7 @@ public class Recipe implements Serializable {
     }
 
 
-    public Intent createIntent(){
+    public Intent createIntent() {
         Intent message = new Intent(Intent.ACTION_SEND);
         message.setType("text/plain");
         message.putExtra(Intent.EXTRA_SUBJECT, "I cooked something today !");
@@ -109,44 +109,44 @@ public class Recipe implements Serializable {
 
     }
 
-    public Spanned get_ingredient_list(){
+    public Spanned get_ingredient_list() {
         String list = "";
-        for(int i=0;i<extendedIngredients.size();i++){
+        for (int i = 0; i < extendedIngredients.size(); i++) {
             String s = extendedIngredients.get(i).getOriginalString();
 
             //this is not pretty to look at, but needed
-            list+= "&#8226; " + s + "<br/>";
+            list += "&#8226; " + s + "<br/>";
         }
         Spanned span;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            span= Html.fromHtml(list, Html.FROM_HTML_MODE_LEGACY );
-        }else{
-            span= Html.fromHtml(list);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            span = Html.fromHtml(list, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            span = Html.fromHtml(list);
         }
 
         return span;
     }
 
-    public Spanned get_instructions_Spanned(){
+    public Spanned get_instructions_Spanned() {
         String inst = "";
-        if(analyzedInstructions.size() > 0){
-        instruction instruction = analyzedInstructions.get(0);
-        List<step> s = instruction.getSteps();
-        for(int i=0; i<s.size();i++){
-            inst+= s.get(i).getStep() + "<br/>";
+        if (analyzedInstructions.size() > 0) {
+            instruction instruction = analyzedInstructions.get(0);
+            List<step> s = instruction.getSteps();
+            for (int i = 0; i < s.size(); i++) {
+                inst += s.get(i).getStep() + "<br/>";
 
-        }
+            }
 
 
-        Spanned span;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            span= Html.fromHtml(inst , Html.FROM_HTML_MODE_COMPACT );
-        }else{
-            span = Html.fromHtml(inst);
-        }
+            Spanned span;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                span = Html.fromHtml(inst, Html.FROM_HTML_MODE_COMPACT);
+            } else {
+                span = Html.fromHtml(inst);
+            }
 
-        return  span;
-        }else{
+            return span;
+        } else {
             return Html.fromHtml("");
         }
     }
